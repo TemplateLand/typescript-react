@@ -1,5 +1,6 @@
 import "./index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
+import App from "./components/App";
 
-ReactDOM.render(<div>Hello, world!</div>, document.getElementById("app"));
+ReactDOM.render(<App name="world" />, document.getElementById("app"));

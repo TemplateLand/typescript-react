@@ -1,9 +1,15 @@
 {
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "start": "cross-env NODE_ENV=development webpack serve --config webpack/dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/prod.js",
     "format": "prettier --write ."
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.54",
@@ -28,10 +34,5 @@
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.2.0"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
   }
 }

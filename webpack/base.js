@@ -1,25 +1,23 @@
-const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserJSPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
-
-const devMode = process.env.NODE_ENV !== "production";
+const { src, build, isProd } = require("./util");
 
 const styleLoader = {
   loader: MiniCssExtractPlugin.loader,
   options: {
-    hmr: devMode,
+    hmr: !isProd,
     reloadAll: true,
   },
 };
 
 module.exports = {
-  entry: path.join(__dirname, "src", "index.tsx"),
+  entry: src("index.tsx"),
   output: {
-    path: path.join(__dirname, "dist"),
+    path: build(),
     filename: "[name].[fullhash].js",
+    chunkFilename: "[name].[fullhash].js",
+    publicPath: "/",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -42,15 +40,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html"),
+      template: src("index.html"),
     }),
     new MiniCssExtractPlugin({
-      filename: devMode ? "[name].css" : "[name].[fullhash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[fullhash].css",
-      ignoreOrder: false,
+      filename: isProd ? "[name].[fullhash].css" : "[name].css",
+      chunkFilename: isProd ? "[id].[fullhash].css" : "[id].css",
     }),
   ],
   optimization: {
-    minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsWebpackPlugin()],
+    minimizer: isProd ? ["...", new CssMinimizerPlugin()] : undefined,
   },
 };
