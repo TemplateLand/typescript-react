@@ -3,14 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { src, build, isProd } = require("./util");
 
-const styleLoader = {
-  loader: MiniCssExtractPlugin.loader,
-  options: {
-    hmr: !isProd,
-    reloadAll: true,
-  },
-};
-
 module.exports = {
   entry: src("index.tsx"),
   output: {
@@ -27,11 +19,18 @@ module.exports = {
       { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /\.css$/,
-        use: [styleLoader, "css-loader"],
+        use: [
+          isProd ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader",
+        ],
       },
       {
         test: /\.s[ac]ss$/,
-        use: [styleLoader, "css-loader", "sass-loader"],
+        use: [
+          isProd ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
       },
       { test: /\.(?:gif|jpg|png|svg|webp)$/, use: ["file-loader"] },
       { test: /\.(?:eot|otf|ttf|woff|woff2)$/, use: ["file-loader"] },
@@ -42,10 +41,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: src("index.html"),
     }),
-    new MiniCssExtractPlugin({
-      filename: isProd ? "[name].[fullhash].css" : "[name].css",
-      chunkFilename: isProd ? "[id].[fullhash].css" : "[id].css",
-    }),
+    ...(isProd
+      ? [
+          new MiniCssExtractPlugin({
+            filename: isProd ? "[name].[fullhash].css" : "[name].css",
+            chunkFilename: isProd ? "[id].[fullhash].css" : "[id].css",
+          }),
+        ]
+      : []),
   ],
   optimization: {
     minimizer: isProd ? ["...", new CssMinimizerPlugin()] : undefined,
