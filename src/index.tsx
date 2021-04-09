@@ -1,6 +1,11 @@
-import "./index.scss";
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 
-ReactDOM.render(<App name="world" />, document.getElementById("app"));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("app-root")
+);

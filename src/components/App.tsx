@@ -1,14 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const App: React.FC<AppProps> = ({ name }) => <div>Hello, {name}!</div>;
-
-App.propTypes = {
-  name: PropTypes.string.isRequired,
+const App: React.FC<AppProps> = () => {
+  return <div>App</div>;
 };
+
+App.displayName = "App";
+
+App.propTypes = {};
 
 export default App;
 
-export type AppProps = {
-  name: string;
-};
+export type AppProps = {};
