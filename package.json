@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "description": "Publish like a pro.",
+  "description": "",
   "scripts": {
     "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=webpack/tsconfig.json webpack serve --config webpack/webpack.dev.ts",
     "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=webpack/tsconfig.json webpack --config webpack/webpack.prod.ts",
