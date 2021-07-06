@@ -1,8 +1,8 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { IgnorePlugin, ProgressPlugin } from "webpack";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
-import { ProgressPlugin, IgnorePlugin } from "webpack";
 import * as paths from "./paths";
 import { Configuration, Plugin } from "./type";
 
