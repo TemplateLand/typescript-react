@@ -1,10 +1,10 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { IgnorePlugin, ProgressPlugin } from "webpack";
+import { IgnorePlugin, ProgressPlugin, Configuration } from "webpack";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import * as paths from "./paths";
-import { Configuration, Plugin } from "./type";
+import "webpack-dev-server";
 
 const isProductionEnv = process.env.NODE_ENV === "production";
 
@@ -67,7 +67,7 @@ const common: Configuration = {
       contextRegExp: /moment$/,
       resourceRegExp: /^\.\/locale$/,
     }),
-    new WebpackManifestPlugin({}) as Plugin,
+    new WebpackManifestPlugin({}),
   ],
   optimization: {
     minimize: isProductionEnv,
@@ -79,7 +79,7 @@ if (isProductionEnv) {
     new MiniCssExtractPlugin({
       filename: "[name].[fullhash].css",
       chunkFilename: "[id].[fullhash].css",
-    }) as Plugin
+    })
   );
 }
 
