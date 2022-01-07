@@ -1,7 +1,7 @@
 import React from "react";
 
 const App: React.FC<AppProps> = () => {
-  return <div>App</div>;
+  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
 };
 
 App.displayName = "App";
